@@ -95,20 +95,21 @@
             </tbody>
         </table>
     </div>
+    <div class="page_num">
+        {% for page_num in messages.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+        {% if messages.page == page_num %}
+        <a class="btn btn-info mb-4" href="{{ url_for('result', page=page_num) }}">{{ page_num }}</a>
+        {% else %}
+        <a class="btn btn-outline-info mb-4" href="{{ url_for('result', page=page_num) }}">{{ page_num }}</a>
+        {% endif %}
+        {% else %}
+        ...
+        {% endif %}
+        {% endfor %}
+    </div>
 {%endif%}
-<div class="page_num">
-{% for page_num in messages.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-{% if page_num %}
-{% if messages.page == page_num %}
-<a class="btn btn-info mb-4" href="{{ url_for('result', page=page_num) }}">{{ page_num }}</a>
-{% else %}
-<a class="btn btn-outline-info mb-4" href="{{ url_for('result', page=page_num) }}">{{ page_num }}</a>
-{% endif %}
-{% else %}
-...
-{% endif %}
-{% endfor %}
-</div>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

@@ -6,8 +6,13 @@ from flask import render_template, request, redirect
 from application.models import Message
 from jcopml.utils import load_model
 from sqlalchemy.sql.expression import desc
+import logging
 
-model = load_model("model/sms_classifier.pkl")
+# import nltk
+# nltk.download('punkt')
+
+
+model = load_model("dataset/model1.pkl")
 
 @app.route("/")  # decorator python
 @app.route("/home")
@@ -52,7 +57,8 @@ def main_page():
             db.session.add(newMessage)
             db.session.commit()
             return render_template('home.html', status=status, text=textMessage)
-        except :
+        except Exception as e:
+            logging.error(f"Error occurred: {e}")
             return "there's an issue here!"
     else:
         status = 0
